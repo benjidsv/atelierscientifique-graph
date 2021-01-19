@@ -28,10 +28,8 @@ OG = {
 
 G = GetGraphFrom(Path(__file__) / "../ressources/massy") # TODO: optimiser le code de converter (ça prend trop de temps)
 
-start = choice(list(G.keys()))
-finish = choice(list(G.keys()))
-while start == finish:
-        finish = choice(list(G.keys()))
-path, cost = astar(G, start, finish) # TODO: trouver pk ça marche pas
+start = (48.7190002, 2.2533135)
+finish = (48.7189578, 2.2533583)
+path, cost = astar(G, start, finish)
 
-DrawGraph(G, 0)
+DrawGraph(G, path)

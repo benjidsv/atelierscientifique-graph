@@ -28,6 +28,10 @@ OG = {
 
 G = GetGraphFrom(Path(__file__) / "../ressources/massy") # TODO: optimiser le code de converter (ça prend trop de temps)
 
-#path, cost = astar(G, start, finish) ne marche pas avec shortpath (je crois que ça passe pas avec les float)
+start = choice(list(G.keys()))
+finish = choice(list(G.keys()))
+while start == finish:
+        finish = choice(list(G.keys()))
+path, cost = astar(G, start, finish) # TODO: trouver pk ça marche pas
 
 DrawGraph(G, 0)

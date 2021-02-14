@@ -47,4 +47,4 @@ def main(start, end, file = None):
 
 """main(starting coordinates, ending coordinates, "File to load")"""
 #main((48.7189581, 2.2533580), (48.7189578, 2.2533583), "../ressources/massy")
-debugConverterPerformanceComparator(Path(__file__) / "../ressources/massy", 15, showMessage = True)
+debugConverterPerformanceComparator(Path(__file__) / "../ressources/massy", 1, showMessage = True)

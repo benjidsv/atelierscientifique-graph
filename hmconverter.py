@@ -15,7 +15,7 @@ def createGraph(data, mode='path'):
     graph = {}
     
     if mode == 'path': oxgraph = ox.load_graphml(data)
-    if mode == 'query': oxgraph = ox.graph_from_place(data, network_type='drive')
+    elif mode == 'query': oxgraph = ox.graph_from_place(data, network_type='drive')
     else: raise ValueError("Mode not supported.")
 
     for nodeid in oxgraph:

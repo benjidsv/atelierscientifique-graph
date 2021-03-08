@@ -2,7 +2,7 @@ import osmnx as ox
 import time
 from debug import printMsg
 
-def getGraphFromFile(data, mode='path', showMessage = False):
+def getGraphFromData(data, mode='path', showMessage = False):
     printMsg("=================== START FILE CONVERSION ===================", showMessage)
     startTime = time.time()
     graph = createGraph(data)

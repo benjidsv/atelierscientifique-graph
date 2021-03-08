@@ -14,7 +14,7 @@ def createGraph(data, mode='path'):
     """Loads a OSMNX xml graph and converts it"""
     graph = {}
     
-    if mode == 'path': oxgraph = ox.load_graphml(date)
+    if mode == 'path': oxgraph = ox.load_graphml(data)
     if mode == 'query': oxgraph = ox.graph_from_place(data, network_type='drive')
     else: raise ValueError("Mode not supported.")
 

@@ -3,6 +3,12 @@ from osmnx.distance import get_nearest_node as nearest
 from PIL import Image
 import pandas as pd
 
+""" La fonction a opti est GeneratePollutionMapRelativeToGraph:
+    On prend un graphe osmnx (d'osm) et les données du pollubike, et vu que les points données par le pollubike correspondent pas au graphe,
+    On prend pour chaque point pollubike le point le + proche dans le graphe, le problème c'est que ça veut dire qu'on doit parcourir le
+    graphe en entier pour chaque point de pollubike (la fonction nearest parcourt tout le graphe pour trouver le point le + proche). Des idées
+    pour améliorer ça ? Temps d'éxec sur mon pc: environ 15s"""
+
 def GeneratePollutionMap(csvpath, pollutionheader='PM10'):
     """Generates a pollution map from the data given (csv format)"""
     map = {}

@@ -2,19 +2,21 @@ import osmnx as ox
 import time
 from debug import printMsg
 
-def getGraphFromFile(file, showMessage = False):
+def getGraphFromFile(data, mode='path', showMessage = False):
     printMsg("=================== START FILE CONVERSION ===================", showMessage)
     startTime = time.time()
-    graph = createGraph(file)
+    graph = createGraph(data)
     printMsg(("Took : " + str(time.time() - startTime) + " seconds to make a graph from the file."), showMessage)
     printMsg("=============================================================", showMessage)
     return graph
   
-def createGraph(file):
+def createGraph(data, mode='path'):
     """Loads a OSMNX xml graph and converts it"""
     graph = {}
     
-    oxgraph = ox.load_graphml(file)
+    if mode == 'path': oxgraph = ox.load_graphml(date)
+    if mode == 'query': oxgraph = ox.graph_from_place(data, network_type='drive')
+    else: raise ValueError("Mode not supported.")
 
     for nodeid in oxgraph:
         graph[oxgraph.nodes[nodeid]['x'], oxgraph.nodes[nodeid]['y']] = []

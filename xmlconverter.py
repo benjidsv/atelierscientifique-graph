@@ -2,7 +2,7 @@ import xml.etree.ElementTree as et
 import time
 from debug import printMsg
 
-def getGraphFromFile(file, showMessage = True):
+def getGraphFromFile(file, showMessage = False):
     printMsg("=================== START FILE CONVERSION ===================", showMessage)
     startTime = time.time()
     graph = createGraph(file)

@@ -1,12 +1,14 @@
-from pathlib import Path
-from converterV2 import *
-from graph_algorithms import *
-from debug import *
+import osmnx as ox
+from pollutionmap import GeneratePollutionMapRelativeToGraph
+from hmconverter import GetGraphFromData
+from bestpath import BestPath
+from graphdisplayer import PlotGraph
 
-graphTest_1 = {
-        ( 0, 0) : [( 0,-1),( 0, 1),( 2, 0),( 0,-2)],
+OG = {
+        ( 0, 0) : [( 0, 1),( 2, 0),( 0,-1),( 0,-2)],
         ( 0, 1) : [( 0,-2),( 2, 1),( 0, 0)],
-        ( 0,-2) : [( 0, 1),( 2,-2),(-1,-2),( 0, 0)],
+        ( 0,-1) : [( 0, 0),( 0,-2)],
+        ( 0,-2) : [( 0, 1),( 0,-1),( 2,-2),(-1,-2),( 0, 0)],
         (-1, 0) : [(-1, 1),( 2, 0),( 0, 0)],
         (-1, 1) : [(-1, 0)],
         (-1,-2) : [( 0,-2)],
@@ -14,37 +16,37 @@ graphTest_1 = {
         ( 2, 1) : [( 0, 1),( 2, 0)],
         ( 2,-2) : [( 2, 0),( 0,-2)],
     }
-            #       -1  0     2 : x
-            #      1 o  o-----o
-            #        |  |     |
-            #      0 o--o-----o
-            #           |     |
-            #     -1    |     |
-            #           |     |
-            #     -2 o--o-----o
-            #      :
-            #      y
+            #       -1  0     2 : x             #       -1  0     2 : x     
+            #      1 o  o-----o                 #      1 0  0-----0
+            #        |  |     |                 #        |  |     |
+            #      0 o--o-----o                 #      0 0--0-----0
+            #           |     |                 #           |     |
+            #     -1    |     |                 #     -1    25    |
+            #           |     |                 #           |     |
+            #     -2 o--o-----o                 #     -2 0--0-----0
+            #      :                            #      :
+            #      y                            #      y
 
-showMessage = True
+polmap = {
+        ( 0, 0) : 0,
+        ( 0, 1) : 0,
+        ( 0,-1) :25,
+        ( 0,-2) : 0,
+        (-1, 0) : 0,
+        (-1, 1) : 0,
+        (-1,-2) : 0,
+        ( 2, 0) : 0,
+        ( 2, 1) : 0,
+        ( 2,-2) : 0,
+}
 
-"""Get graph from file if filepath isn't equals to None, else get a test graph"""
-def getGraph(file = None) :
-    if file :
-        return getGraphFromFile(Path(__file__) / file, showMessage)
-    return graphTest_1
+path = BestPath(OG, (-1, 1), (-1,-2), polmap)
+PlotGraph(OG, path, polmap)
 
-"""Get path from graph with the specified function. Allow user to select best way or just a classic way"""
-def getPathFromGraph(graph, start, end, shortest = True) :
-    if shortest:
-        return findShortestPath(graph, start, end)
-    return findPath(graph, start, end)
+"""
+G = ox.load_graphml('C:/Users/benja/Desktop/Python/atelierscientifique-graph-main/ressources/graph.xml')
+polmap = 1 #GeneratePollutionMapRelativeToGraph(G, "C:/Users/benja/Desktop/Python/atelierscientifique-graph-main/ressources/data10.csv")
+graph = GetGraphFromData(G, 'graph')
 
-"""Main, code executed in first"""
-def main(start, end, file = None):
-    graph = getGraph(file) # Get a graph
-    #path = getPathFromGraph(graph, start, end) # Get a path
-    #displayGraph(graph, path) # Display the graph to the user's screen
-
-"""main(starting coordinates, ending coordinates, "File to load")"""
-#main((48.7189581, 2.2533580), (48.7189578, 2.2533583), "../ressources/massy")
-debugConverterPerformanceComparator(Path(__file__) / "../ressources/massy", 1, showMessage = True)
+path, _ = astar(graph, list(graph.keys())[0], list(graph.keys())[500])
+PlotGraph(graph, path)"""

@@ -4,6 +4,7 @@ from hmconverter import GraphToEdgeList
 
 def DEFAULT_CMAP():
     """Default pollution colormap. Returns a color depending on the pollution value"""
+    return 1
 
 def PlotGraph(graph, path=None, polmap=None, cmap=DEFAULT_CMAP):
     """Plots a graph """
@@ -14,7 +15,7 @@ def PlotGraph(graph, path=None, polmap=None, cmap=DEFAULT_CMAP):
     if path != None: plt.plot(*zip(*path), 'r') # Si un chemin est donné, on l'affiche
     if polmap: 
         for node in graph.keys(): 
-            plt.scatter(node[0], node[1], c=polmap[node]) # Pareil pour la pollution
+            plt.scatter(node[0], node[1], c=cmap(polmap[node])) # Pareil pour la pollution
     plt.show()
 
 """

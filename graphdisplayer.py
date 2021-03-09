@@ -10,7 +10,6 @@ def DEFAULT_CMAP(pol):
 
 def PlotGraph(graph, path=None, polmap=None, cmap=DEFAULT_CMAP):
     """Plots a graph """
-    #je pense que l'on mettra une valeur 1 pour moins de 10 une valeur 2 pour de 10 à 40 et 4 pour plus de 40
     edges = GraphToEdgeList(graph) # On récupère les cotés du graphe (les lignes qui le composent)
     for line in edges:
         plt.plot(*zip(*line), 'c') # On les affiche

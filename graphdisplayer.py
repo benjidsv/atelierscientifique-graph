@@ -10,7 +10,7 @@ def ColorMap(polmap):
     print(colors)
     return colors
 
-def Normalize(value, rmin=0, rmax=100, tmin=0, tmax=1):
+def Normalize(value, rmin=0, rmax=650, tmin=0, tmax=1):
     """Normalizes value between tmin and tmax"""
     return (value - rmin)/(rmax - rmin) * (tmax - tmin) + tmin
 

@@ -2,9 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from hmconverter import GraphToEdgeList
 
-def DEFAULT_CMAP():
+def DEFAULT_CMAP(pol):
     """Default pollution colormap. Returns a color depending on the pollution value"""
-    return 1
+    if pol < 10: return 'w'
+    if 10 < pol < 30: return 'b'
+    if pol > 40: return 'g'def DEFAULT_CMAP():
 
 def PlotGraph(graph, path=None, polmap=None, cmap=DEFAULT_CMAP):
     """Plots a graph """

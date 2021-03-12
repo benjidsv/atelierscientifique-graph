@@ -1,48 +1,58 @@
-from formulas import haversineDistance
-from collections import deque
+from formulas import HaversineDistance as haversine
+from graphs import Graph
+import heapq
 
-def BestPath(graph, start, goal, polmap, polscale=0.5, cost=haversineDistance, heuristic=haversineDistance):
-    """Returns the path that is the best compromise between speed and pollution, according to the scale factor"""
-    opened = set()
-    closed = set()
-    m_heur = {}
-    m_parent = {}
-    m_cost = {} # absolute path costs
+class PriorityQueue():
+    def __init__(self):
+        self.__elements: List[Tuple[float, T]] = []
 
-    def path_from(node):
-        def parents(node):
-            while node:
-                yield node
-                node = m_parent.get(node, None)
-        path  = [p for p in parents(node)]
-        cost = m_cost[goal]
-        path.reverse()
-        return path,cost
+    def __str__(self):
+        return str(self.__elements)
 
-    opened.add(start)
-    m_cost[start] = 0
-    while opened:
-        # sort opened nodes based on the heuristic and consider the first one
-        current = sorted(opened, key=lambda n : m_heur.get( n, heuristic(n,goal) ) )[0]
-        if current == goal:
-            # FIXME add backtrack validation
-            return path_from(current)
+    def IsEmpty(self) -> bool:
+        return not self.__elements
 
-        closed.add(current)
-        opened.remove(current)
+    def Insert(self, item, priority: float):
+        heapq.heappush(self.__elements, (priority, item))
+
+    def GetElement(self):
+        return heapq.heappop(self.__elements)[1]
+
+def Astar(graph: Graph, start, goal, balance:float=0.5, h_cost=haversine):
+    """A* search to find the shortest path in adj from start to goal"""
+    if not 0 <= balance <= 1: raise ValueError("Balance must be between 0 and 1")
+    opened = PriorityQueue()
+    opened.Insert(start, 0)
     
-        for neighbor in graph[current]:
-            if neighbor in closed:
-                continue
+    camefrom = {}
+    cost = {}
 
-            elif neighbor in opened:
-                next_cost = m_cost[current] + cost(current,neighbor)
-                if next_cost < m_cost[neighbor]:
-                    m_cost[neighbor] = next_cost
-                    m_parent[neighbor] = current
-            else:
-                m_cost[neighbor] = m_cost[current] + cost(current,neighbor)
-                m_heur[neighbor] = heuristic( neighbor, goal )
-                m_parent[neighbor] = current
-                opened.add(neighbor)
-    return []
+    camefrom[start] = None
+    cost[start] = 0
+
+    while not opened.IsEmpty():
+        current = opened.GetElement()
+
+        if current == goal: return PathFrom(goal, camefrom)
+
+        for next in graph.GetNeighbors(current):
+            newcost = cost[current] + graph.CostBetween(current, next, balance)
+            if next not in cost or newcost < cost[next]:
+                cost[next] = newcost
+                f_cost = newcost + h_cost(next, goal)
+                opened.Insert(next, f_cost)
+                camefrom[next] = current
+
+    return None
+
+def PathFrom(goal, camefrom):
+    path = []
+
+    next = camefrom[goal]
+    while not next == None:
+        path.append(next)
+        next = camefrom[next]
+
+    path.reverse()
+    path.append(goal)
+    return path

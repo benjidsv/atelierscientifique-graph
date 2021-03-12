@@ -1,27 +1,29 @@
 import osmnx as ox
+import os
 from pollutionmap import GeneratePollutionMapRelativeToGraph
 from hmconverter import GetGraphFromData
-from bestpath import BestPath
+from graphs import Graph
+from bestpath import Astar
 from graphdisplayer import PlotGraph
 
 OG = {
-        ( 0, 0) : [( 0, 1),( 2, 0),( 0,-1),( 0,-2)],
-        ( 0, 1) : [( 0,-2),( 2, 1),( 0, 0)],
+        ( 0, 0) : [( 0, 1),( 1, 0),( 0,-1),( 0,-2)],
+        ( 0, 1) : [( 0,-2),( 1, 1),( 0, 0)],
         ( 0,-1) : [( 0, 0),( 0,-2)],
-        ( 0,-2) : [( 0, 1),( 0,-1),( 2,-2),(-1,-2),( 0, 0)],
-        (-1, 0) : [(-1, 1),( 2, 0),( 0, 0)],
+        ( 0,-2) : [( 0, 1),( 0,-1),( 1,-2),(-1,-2),( 0, 0)],
+        (-1, 0) : [(-1, 1),( 1, 0),( 0, 0)],
         (-1, 1) : [(-1, 0)],
         (-1,-2) : [( 0,-2)],
-        ( 2, 0) : [( 2, 1),( 2,-2),(-1, 0),( 0, 0)],
-        ( 2, 1) : [( 0, 1),( 2, 0)],
-        ( 2,-2) : [( 2, 0),( 0,-2)],
+        ( 1, 0) : [( 1, 1),( 1,-2),(-1, 0),( 0, 0)],
+        ( 1, 1) : [( 0, 1),( 1, 0)],
+        ( 1,-2) : [( 1, 0),( 0,-2)],
     }
             #       -1  0     2 : x             #       -1  0     2 : x     
             #      1 o  o-----o                 #      1 0  0-----0
             #        |  |     |                 #        |  |     |
             #      0 o--o-----o                 #      0 0--0-----0
             #           |     |                 #           |     |
-            #     -1    |     |                 #     -1    25    |
+            #     -1    o     |                 #     -1   max    |
             #           |     |                 #           |     |
             #     -2 o--o-----o                 #     -2 0--0-----0
             #      :                            #      :
@@ -30,23 +32,22 @@ OG = {
 polmap = {
         ( 0, 0) : 0,
         ( 0, 1) : 0,
-        ( 0,-1) :50,
+        ( 0,-1) :650,
         ( 0,-2) : 0,
         (-1, 0) : 0,
         (-1, 1) : 0,
         (-1,-2) : 0,
-        ( 2, 0) : 0,
-        ( 2, 1) : 0,
-        ( 2,-2) : 0,
+        ( 1, 0) : 0,
+        ( 1, 1) : 0,
+        ( 1,-2) : 0,
 }
 
-path, _ = BestPath(OG, (-1, 1), (-1,-2), polmap)
-PlotGraph(OG, path, polmap)
+dir = os.path.abspath(os.path.dirname(__file__))
 
-
-G = ox.load_graphml('C:/Users/benja/Desktop/Python/atelierscientifique-graph-main/ressources/graph.xml')
-polmap = GeneratePollutionMapRelativeToGraph(G, "C:/Users/benja/Desktop/Python/atelierscientifique-graph-main/ressources/data10.csv")
-graph = GetGraphFromData(G, 'graph')
-
-path, _ = BestPath(graph, list(graph.keys())[0], list(graph.keys())[500], polmap)
+oxgraph = ox.load_graphml(dir + '/ressources/graph.xml')# ox.load_graphml('C:/Users/benja/Desktop/Python/atelierscientifique-graph-main/ressources/graph.xml')
+startpoint, goalpoint = ox.distance.get_nearest_node(oxgraph, (48.72994, 2.2883)), ox.distance.get_nearest_node(oxgraph, ( 48.73449, 2.29273))
+start, goal = (oxgraph.nodes[startpoint]['x'], oxgraph.nodes[startpoint]['y']), (oxgraph.nodes[goalpoint]['x'],oxgraph.nodes[goalpoint]['y'])
+polmap = GeneratePollutionMapRelativeToGraph(oxgraph, dir + "/ressources/data10.csv")
+graph = GetGraphFromData(oxgraph, polmap, 'graph')
+path = Astar(graph, start, goal, 0.1)
 PlotGraph(graph, path, polmap)

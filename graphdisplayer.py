@@ -1,28 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from hmconverter import GraphToEdgeList
 
 def ColorMap(polmap):
     """Default pollution colormap. Returns a color depending on the pollution value"""
     colors = []
     for node in polmap: # On regarde chaque valeur de pollution
         colors.append((0, 0.4, 0, Normalize(polmap[node]))) # Et on assigne une transparence (alpha) en fonction de la valeur
-    print(colors)
     return colors
 
 def Normalize(value, rmin=0, rmax=650, tmin=0, tmax=1):
     """Normalizes value between tmin and tmax"""
     return (value - rmin)/(rmax - rmin) * (tmax - tmin) + tmin
 
-def PlotGraph(graph, path=None, polmap=None):
+def PlotGraph(graph, path=None, polmap=None, nodes=False):
     """Plots a graph """
-    edges = GraphToEdgeList(graph) # On récupère les cotés du graphe (les lignes qui le composent)
-    for line in edges:
-        plt.plot(*zip(*line), 'c') # On les affiche
+    edges = graph.GetEdges()
+
+    if edges: 
+        for line in edges: plt.plot(*zip(*line), 'c') # On les affiche
+
+    if nodes: plt.scatter(*zip(*graph.GetNodes()), c='c', s=3**2) # De même pour les noeuds
 
     if path: 
-        if polmap: plt.scatter(*zip(*path), c='b', zorder=4) # On redessine les points si une polmap est fournie, sinon on a des trous
         plt.plot(*zip(*path), 'b', zorder=2) # Si un chemin est donné, on l'affiche
+        plt.scatter(*zip(*[path[0], path[-1]]), c='r', zorder=4)
 
     if polmap: plt.scatter(*zip(*polmap), c=ColorMap(polmap), zorder=3) # Pareil pour la pollution
     

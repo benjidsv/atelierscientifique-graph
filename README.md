@@ -13,24 +13,24 @@
 ```sh
    git clone https://github.com/tozuky/atelierscientifique-graph.git
 ```
-2. (Windows) Installez les fichiers wheel suivants:
-* GDAL
-  ```sh
-  pip install ./depedencies/GDAL-3.2.1-cp38-cp38-win_amd64.whl
-  ```
-* Fiona
-  ```sh
-  pip install ./depedencies/Fiona-1.8.18-cp38-cp38-win_amd64.whl
-  ```
-    (UNIX) Installez les modules suivants:
-* GDAL
-  ```sh
-  pip install gdal
-  ```
-* Fiona
-  ```sh
-  pip install fiona
-  ``` 
+2. * (Windows) Installez les fichiers wheel suivants:
+      * GDAL
+      ```sh
+      pip install ./depedencies/GDAL-3.2.1-cp38-cp38-win_amd64.whl
+      ```
+      * Fiona
+      ```sh
+      pip install ./depedencies/Fiona-1.8.18-cp38-cp38-win_amd64.whl
+      ```
+   * (UNIX) Installez les modules suivants:
+      * GDAL
+      ```sh
+      pip install gdal
+      ```
+      * Fiona
+      ```sh
+      pip install fiona
+      ``` 
 3. Installez les modules du fichier requirements.txt:
   ```sh
   pip install -r ./dependencies/requirements.txt

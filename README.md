@@ -62,7 +62,7 @@ Cliquez ensuite sur le bouton afficher afin d'afficher vos données:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[app-sc]: screenshots/demo.png
+[app-sc]: screenshots/demo.PNG
 [graph-settings-sc]: screenshots/graph-settings.png
 [path-settings-sc]: screenshots/path-settings.png
 [pol-settings-sc]: screenshots/pol-settings.png

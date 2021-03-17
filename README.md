@@ -45,8 +45,8 @@ Lancez poldemo.py pour démarrer l'application de demo.\
 
 Spécifiez ensuite des données de graphe, soit un fichier xml généré avec osmnx, soit une requête:\
 ![Paramètres du graphe][graph-settings-sc]\
-La requête doit être écrite sous la forme suivante:
-    ville, pays, quartier, continent, lieu, etc.|paramètre1=valeur1,paramètre2=valeur2
+La requête doit être écrite sous la forme suivante:\
+    ville, pays, quartier, continent, lieu, etc.|paramètre1=valeur1,paramètre2=valeur2\
     => Exemple: Massy, Essonne, France|network_type=drive
 
 Renseignez deux points, soit en tant qu'adresses/lieux, soit directement en coordonnées:\

@@ -1,5 +1,7 @@
 # atelierscientifique-graph
 
+![Démo][demo-sc]
+
 ### Fait avec
 * [osmnx](https://pypi.org/project/PyQt5/)
 * [PyQt5](https://github.com/gboeing/osmnx)
@@ -39,7 +41,7 @@
 ### Utilisation
 
 Lancez poldemo.py pour démarrer l'application de demo.
-[![Application Démo][app-sc]]
+![Application Démo][app-sc]
 
 Spécifiez ensuite des données de graphe, soit un fichier xml généré avec osmnx, soit une requête:
 [![Paramètres du graphe][graph-settings-sc]]
@@ -62,8 +64,9 @@ Cliquez ensuite sur le bouton afficher afin d'afficher vos données:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[app-sc]: screenshots/demo.PNG
-[graph-settings-sc]: screenshots/graph-settings.png
-[path-settings-sc]: screenshots/path-settings.png
-[pol-settings-sc]: screenshots/pol-settings.png
-[plot-sc]: screenshots/plot.png
+[demo-sc]: screenshots/demo.PNG
+[app-sc]: screenshots/demoapp.PNG
+[graph-settings-sc]: screenshots/requête.PNG
+[path-settings-sc]: screenshots/path.PNG
+[pol-settings-sc]: screenshots/pol.PNG
+[plot-sc]: screenshots/plot.PNG

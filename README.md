@@ -1,13 +1,11 @@
 # atelierscientifique-graph
 
-### Built With
-
+## Fait avec
 * [osmnx](https://pypi.org/project/PyQt5/)
 * [PyQt5](https://github.com/gboeing/osmnx)
 
-
 <!-- UTILISATION -->
-## Toturiel
+## Tutoriel
 
 ### Installation
 

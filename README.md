@@ -54,7 +54,7 @@ Renseignez deux points, soit en tant qu'adresses/lieux, soit directement en coor
 
 Finalement, des données de pollution (format csv, avec latitude, longitude, valeurs de pollution) puis ajustez la valeur d'importance:\
 ![Paramètres de pollution][pol-settings-sc]\
-La valeur d'importance correspond à l'importance qu'a la pollution dans la calcul du meilleur chemin entre les deux points donnés.\
+La valeur d'importance correspond à l'importance qu'a la pollution dans le calcul du meilleur chemin entre les deux points donnés:
 * A 0 (tout a gauche), la pollution n'est pas prise en compte, seule la distance est calculée.
 * A 1 (tout a droite), la distance n'est pas prise en compte, seule la pollution est calculée.
 * Entre les deux, la pollution et la distance sont équilibrées selon la valeur.

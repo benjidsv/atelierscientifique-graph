@@ -1,0 +1,6 @@
+osmnx
+PyQt5
+qdarkstyle
+matplotlib
+numpy
+pandas
